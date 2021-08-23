@@ -14,6 +14,7 @@ RUN cd /tmp \
     && tar --strip 1 -xzvf hbase-${HBASE_VERSION}-bin.tar.gz -C /opt/hbase \
     && groupadd hadoop \
 	&& useradd -m -d /opt/hbase -g hadoop hbase \
+    && mkdir -p /opt/hbase/logs /opt/hbase/data \
 	&& chown -R hbase:hadoop /opt/hbase \
     && rm -f /tmp/hbase-${HBASE_VERSION}-bin.tar.gz
 
@@ -21,6 +22,6 @@ USER hbase
 
 VOLUME ["/opt/hbase/conf", "/opt/hbase/logs", "/opt/hbase/data"]
 
-COPY hbase/ /opt/hbase/
+COPY --chown=hbase hbase/ /opt/hbase/
 
 CMD [ "/opt/hbase/bin/start.sh" ]
