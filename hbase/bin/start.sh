@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 
 /opt/hbase/bin/start-hbase.sh
 
